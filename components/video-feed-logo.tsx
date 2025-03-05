@@ -1,4 +1,4 @@
-export default function NextLogo() {
+export default function VideoFeedLogo() {
   return (
     <svg
       aria-label="Next.js logotype"
