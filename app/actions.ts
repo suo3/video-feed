@@ -4,6 +4,8 @@ import { encodedRedirect } from "@/utils/utils";
 import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
+import { NextApiRequest, NextApiResponse } from 'next';
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -132,3 +134,58 @@ export const signOutAction = async () => {
   await supabase.auth.signOut();
   return redirect("/sign-in");
 };
+
+
+
+export async function getVideosAction( category_id?: string) {
+ try{
+const supabase = await createClient();
+
+// get all videos
+  const {data:videos, error: videosError} = await supabase
+  .from('videos')
+  .select('id, title, description, thumbnail_url, video_url, created_at, category_id')
+
+  if(videosError) {
+    throw videosError;
+  }
+
+  // get all categories
+  const {data:categories, error: categoriesError} = await supabase
+  .from('categories')
+  .select('id, name, description')
+
+  if(categoriesError) {
+    throw categoriesError;
+  }
+
+  // get videos for each category
+  const {data:categoryVideos, error: categoryVideosError} = await supabase
+  .from('videos')
+  .select('id, title, description, thumbnail_url, video_url, created_at, category_id')
+  .eq('category_id', category_id)
+
+
+  if(categoryVideosError) {
+    throw categoryVideosError;
+  }
+
+  // get category name 
+
+  const {data:categoryName, error: categoryNameError} = await supabase
+  .from('categories')
+  .select('name, description')
+  .eq('id', category_id)
+
+  if(categoryNameError) {
+    throw categoryNameError;
+  }
+
+
+  return {videos,categories, categoryVideos, categoryName};
+ } catch(error){
+  console.error(error);
+  notFound();
+ }
+}
+
