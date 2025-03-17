@@ -1,3 +1,4 @@
+
 import DeployButton from "@/components/deploy-button";
 import { EnvVarWarning } from "@/components/env-var-warning";
 import HeaderAuth from "@/components/header-auth";
@@ -7,6 +8,9 @@ import VideoFeedLogo from "@/components/video-feed-logo";
 import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import Link from "next/link";
+import { getCategories } from "./actions";
+import { getFeaturedVideos } from "./actions";
+import Header from "@/components/hero";
 import "./globals.css";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -24,11 +28,31 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
+const CategoryLinks = async () => {
+  const { categories } = await getCategories();
+
+  return (
+    <div>
+      {categories.map((category) => (
+        <Link key={category.id} className="uppercase mr-3 font-semibold hover:underline" href={`/categories/${category.id}`}>
+          {category.name}
+        </Link>
+      ))}
+    </div>
+  )
+}
+
 export default function RootLayout({
+  params,
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+  params: Record<string, string | string[] | undefined>;
+}> ) {
+
+  const {categoryId} = params;
+
+  console.log('categoryId', categoryId);
   return (
     <html lang="en" className={geistSans.className} suppressHydrationWarning>
       <body className="bg-background text-foreground">
@@ -39,22 +63,27 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <main className="min-h-screen flex flex-col items-center">
-            <div className="flex-1 w-full flex flex-col gap-20 items-center">
-              <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
+            <div className="flex-1 w-full flex flex-col gap-0 items-center">
+              <nav className="w-full flex justify-center border-b border-b-foreground/10 h-18">
                 <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
                   <div className="flex gap-5 items-center font-semibold">
                     <Link href={"/"}>
                       <VideoFeedLogo />
                     </Link>
                    
-                    <div className="flex items-center gap-2">
-                      <DeployButton />
-                    </div>
+                    
                   </div>
+                  <div className="flex items-center gap-4">
+                    <CategoryLinks />
+                    </div>
                   {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
                 </div>
               </nav>
-              <div className="flex flex-col gap-20 max-w-5xl p-5">
+              {/* Hero Header */}
+              <div className="flex color-white hero flex-col gap-10 w-full bg-black min-h-[500px]">
+               {<Header videos={[]} />}
+              </div>
+              <div className="flex flex-col gap-20 max-w-5xxl p-5">
                 {children}
               </div>
 

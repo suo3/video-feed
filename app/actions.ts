@@ -5,7 +5,7 @@ import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { notFound } from "next/navigation";
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse} from "next/server";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -137,41 +137,20 @@ export const signOutAction = async () => {
 
 
 
-export async function getVideosAction( category_id?: string) {
+export async function getCategoryVideosAction( category_id?: string) {
  try{
 const supabase = await createClient();
-
-// get all videos
-  const {data:videos, error: videosError} = await supabase
-  .from('videos')
-  .select('id, title, description, thumbnail_url, video_url, created_at, category_id')
-
-  if(videosError) {
-    throw videosError;
-  }
-
-  // get all categories
-  const {data:categories, error: categoriesError} = await supabase
-  .from('categories')
-  .select('id, name, description')
-
-  if(categoriesError) {
-    throw categoriesError;
-  }
-
   // get videos for each category
   const {data:categoryVideos, error: categoryVideosError} = await supabase
   .from('videos')
-  .select('id, title, description, thumbnail_url, video_url, created_at, category_id')
+  .select('id, title, description, thumbnail_url, video_url, created_at, category_id, featured')
   .eq('category_id', category_id)
-
 
   if(categoryVideosError) {
     throw categoryVideosError;
   }
 
   // get category name 
-
   const {data:categoryName, error: categoryNameError} = await supabase
   .from('categories')
   .select('name, description')
@@ -181,11 +160,53 @@ const supabase = await createClient();
     throw categoryNameError;
   }
 
-
-  return {videos,categories, categoryVideos, categoryName};
+  return { categoryVideos, categoryName};
  } catch(error){
   console.error(error);
   notFound();
  }
 }
 
+
+
+export async function getCategories() {
+ try{
+const supabase = await createClient();
+
+  // get all categories
+  const {data:categories, error: categoriesError} = await supabase
+  .from('categories')
+  .select('id, name, description')
+
+  if(categoriesError) {
+    throw categoriesError;
+  }
+ 
+  return {categories};
+ } catch(error){
+  console.error(error);
+  notFound();
+ }
+}
+
+//get all featured videos
+export async function getFeaturedVideos() {
+ try{
+ 
+const supabase = await createClient();
+
+  const {data:featuredVideos, error: featuredVideosError} = await supabase  
+  .from('videos')
+  .select('id, title, description, thumbnail_url, video_url, created_at, category_id, featured')
+  .eq('featured', true)
+
+  if(featuredVideosError) {
+    throw featuredVideosError;
+  }
+ 
+  return {featuredVideos};
+ } catch(error){
+  console.error(error);
+  notFound();
+ }
+}

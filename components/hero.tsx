@@ -1,37 +1,24 @@
+'use server'
 import VideoFeedLogo from "./video-feed-logo";
+import { getFeaturedVideos } from "@/app/actions";
 
-export default function Header() {
+interface Video {
+  id:number;
+  title: string;
+  description: string;
+  thumbnail_url: string;
+  video_url: string;
+  created_at: string;
+  category_id: number;
+  featured: boolean;
+}
+export default async function Header({ videos }: { videos: Video[] })  {
+const { featuredVideos } = await getFeaturedVideos();
+
+
   return (
-    <div className="flex flex-col gap-16 items-center">
-      <div className="flex gap-8 justify-center items-center">
-      
-        <span className="border-l rotate-45 h-6" />
-        <a href="https://nextjs.org/" target="_blank" rel="noreferrer">
-          <VideoFeedLogo />
-        </a>
-      </div>
-      <h1 className="sr-only">Supabase and Next.js Starter Template</h1>
-      <p className="text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center">
-        The fastest way to build appsss with{" "}
-        <a
-          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-          target="_blank"
-          className="font-bold hover:underline"
-          rel="noreferrer"
-        >
-          Supabase
-        </a>{" "}
-        and{" "}
-        <a
-          href="https://nextjs.org/"
-          target="_blank"
-          className="font-bold hover:underline"
-          rel="noreferrer"
-        >
-          Next.js
-        </a>
-      </p>
-      <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />
-    </div>
+    <div className="flex text-white flex-col gap-16 items-center">
+     <h1>TEST</h1>
+     </div>
   );
 }

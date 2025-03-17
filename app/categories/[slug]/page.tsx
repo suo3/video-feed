@@ -1,16 +1,16 @@
 
-import { getVideosAction } from "@/app/actions";
+import { getCategoryVideosAction } from "@/app/actions";
 
 
 async function CategoryPage  (props:{params: Promise<{categoryId: string}>} )  {
 const params = await props.params;
 const categoryId = params.categoryId;
 console.log(categoryId)
-const { videos, categories, categoryVideos, categoryName } = await getVideosAction(categoryId);
+const { categoryVideos, categoryName } = await getCategoryVideosAction(categoryId);
 
 console.log('categoryName', categoryName)
 console.log('categoryVideos', categoryVideos)
-console.log(videos)
+console.log(categoryVideos)
   return (
 
 
@@ -18,11 +18,11 @@ console.log(videos)
      <h1 className="text-3xl font-bold mb-4">{categoryName[0].name}</h1>
       {categoryName[0].description && <p className="text-gray-600 mb-6">{categoryName[0].description}</p>}
 
-  <pre>{JSON.stringify(videos, null, 2)}</pre> 
-   <pre>{JSON.stringify(categories, null, 2)}</pre>  
+  <pre>{JSON.stringify(categoryVideos, null, 2)}</pre> 
+   
      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {videos && videos.length > 0 ? (
-          videos.map((video) => (
+        {categoryVideos && categoryVideos.length > 0 ? (
+          categoryVideos.map((video) => (
             <div key={video.id} className="border rounded-lg p-4">
               {video.thumbnail_url && (
                 <img
