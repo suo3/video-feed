@@ -2,11 +2,13 @@
 import { getCategoryVideosAction } from "@/app/actions";
 
 
-async function CategoryPage  (props:{params: Promise<{categoryId: string}>} )  {
+async function CategoryPage  (props:{params: Promise<{slug: string}>} )  {
 const params = await props.params;
-const categoryId = params.categoryId;
-console.log(categoryId)
-const { categoryVideos, categoryName } = await getCategoryVideosAction(categoryId);
+const slug = params.slug;
+
+
+console.log(slug)
+const { categoryVideos, categoryName } = await getCategoryVideosAction(slug);
 
 console.log('categoryName', categoryName)
 console.log('categoryVideos', categoryVideos)
@@ -18,7 +20,7 @@ console.log(categoryVideos)
      <h1 className="text-3xl font-bold mb-4">{categoryName[0].name}</h1>
       {categoryName[0].description && <p className="text-gray-600 mb-6">{categoryName[0].description}</p>}
 
-  <pre>{JSON.stringify(categoryVideos, null, 2)}</pre> 
+  <pre>{JSON.stringify(categoryVideos, null, 1)}</pre> 
    
      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {categoryVideos && categoryVideos.length > 0 ? (

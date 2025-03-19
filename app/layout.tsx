@@ -1,15 +1,9 @@
 
-import DeployButton from "@/components/deploy-button";
-import { EnvVarWarning } from "@/components/env-var-warning";
-import HeaderAuth from "@/components/header-auth";
 import { ThemeSwitcher } from "@/components/theme-switcher";
-import { hasEnvVars } from "@/utils/supabase/check-env-vars";
-import VideoFeedLogo from "@/components/video-feed-logo";
+import { NavBar } from "@/components/site/NavBar";
+import { Footer } from "@/components/site/Footer";
 import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
-import Link from "next/link";
-import { getCategories } from "./actions";
-import { getFeaturedVideos } from "./actions";
 import Header from "@/components/hero";
 import "./globals.css";
 
@@ -28,31 +22,15 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const CategoryLinks = async () => {
-  const { categories } = await getCategories();
 
-  return (
-    <div>
-      {categories.map((category) => (
-        <Link key={category.id} className="uppercase mr-3 font-semibold hover:underline" href={`/categories/${category.id}`}>
-          {category.name}
-        </Link>
-      ))}
-    </div>
-  )
-}
 
 export default function RootLayout({
-  params,
   children,
 }: Readonly<{
   children: React.ReactNode;
-  params: Record<string, string | string[] | undefined>;
 }> ) {
 
-  const {categoryId} = params;
-
-  console.log('categoryId', categoryId);
+ 
   return (
     <html lang="en" className={geistSans.className} suppressHydrationWarning>
       <body className="bg-background text-foreground">
@@ -65,19 +43,7 @@ export default function RootLayout({
           <main className="min-h-screen flex flex-col items-center">
             <div className="flex-1 w-full flex flex-col gap-0 items-center">
               <nav className="w-full flex justify-center border-b border-b-foreground/10 h-18">
-                <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
-                  <div className="flex gap-5 items-center font-semibold">
-                    <Link href={"/"}>
-                      <VideoFeedLogo />
-                    </Link>
-                   
-                    
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <CategoryLinks />
-                    </div>
-                  {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
-                </div>
+               <NavBar />
               </nav>
               {/* Hero Header */}
               <div className="flex color-white hero flex-col gap-10 w-full bg-black min-h-[500px]">
@@ -87,20 +53,7 @@ export default function RootLayout({
                 {children}
               </div>
 
-              <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
-                <p>
-                  Powered by{" "}
-                  <a
-                    href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-                    target="_blank"
-                    className="font-bold hover:underline"
-                    rel="noreferrer"
-                  >
-                    Supabase
-                  </a>
-                </p>
-                <ThemeSwitcher />
-              </footer>
+             <Footer />
             </div>
           </main>
         </ThemeProvider>

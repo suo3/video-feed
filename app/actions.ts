@@ -137,14 +137,14 @@ export const signOutAction = async () => {
 
 
 
-export async function getCategoryVideosAction( category_id?: string) {
+export async function getCategoryVideosAction( slug?: string) {
  try{
 const supabase = await createClient();
   // get videos for each category
   const {data:categoryVideos, error: categoryVideosError} = await supabase
   .from('videos')
-  .select('id, title, description, thumbnail_url, video_url, created_at, category_id, featured')
-  .eq('category_id', category_id)
+  .select('id, title, description, thumbnail_url, video_url, created_at, category_id, featured, cat_slug')
+  .eq('cat_slug', slug)
 
   if(categoryVideosError) {
     throw categoryVideosError;
@@ -154,7 +154,7 @@ const supabase = await createClient();
   const {data:categoryName, error: categoryNameError} = await supabase
   .from('categories')
   .select('name, description')
-  .eq('id', category_id)
+  .eq('slug', slug)
 
   if(categoryNameError) {
     throw categoryNameError;
@@ -176,7 +176,7 @@ const supabase = await createClient();
   // get all categories
   const {data:categories, error: categoriesError} = await supabase
   .from('categories')
-  .select('id, name, description')
+  .select('id, name, description, slug')
 
   if(categoriesError) {
     throw categoriesError;
@@ -197,7 +197,7 @@ const supabase = await createClient();
 
   const {data:featuredVideos, error: featuredVideosError} = await supabase  
   .from('videos')
-  .select('id, title, description, thumbnail_url, video_url, created_at, category_id, featured')
+  .select('id, title, description, thumbnail_url, video_url, created_at, category_id, featured, cat_slug')
   .eq('featured', true)
 
   if(featuredVideosError) {
