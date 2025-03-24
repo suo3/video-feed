@@ -4,7 +4,6 @@ import { NavBar } from "@/components/site/NavBar";
 import { Footer } from "@/components/site/Footer";
 import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
-import Header from "@/components/hero";
 import "./globals.css";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -40,16 +39,16 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main className="min-h-screen flex flex-col items-center">
+          <main className="w-full min-h-screen flex flex-col items-center">
             <div className="flex-1 w-full flex flex-col gap-0 items-center">
               <nav className="w-full flex justify-center border-b border-b-foreground/10 h-18">
                <NavBar />
               </nav>
               {/* Hero Header */}
-              <div className="flex color-white hero flex-col gap-10 w-full bg-black min-h-[500px]">
+              {/* <div className="flex color-white hero flex-col gap-10 w-full bg-black min-h-[500px]">
                {<Header videos={[]} />}
-              </div>
-              <div className="flex flex-col gap-20 max-w-5xxl p-5">
+              </div> */}
+              <div className="w-full flex flex-col gap-20  px-0">
                 {children}
               </div>
 
