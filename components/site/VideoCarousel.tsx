@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { PlayCircle } from "lucide-react"
 import useEmblaCarousel from "embla-carousel-react"
 import YouTubePlayer from "./YoutubePlayer"
-import FeaturedVideoHeader from "./featuredVideoHeader"
+import FeaturedVideoHeader from "./FeaturedVideoHeader"
 
  interface Video {
   id: number

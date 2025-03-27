@@ -26,7 +26,7 @@ export default function FeaturedVideos({ videos }: FeaturedVideosProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {videos.map((video) => (
           <div key={video.id} className="flex flex-col">
-            <Link href={`/videos/${video.cat_slug}`} className="group">
+            <Link href={`/video/${video.title.toLowerCase().replace(/\s+/g, "-")}`} className="group">
               <div className="relative aspect-video mb-3 overflow-hidden">
                 <Image
                   src={video.thumbnail_url || "/placeholder.svg"}

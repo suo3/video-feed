@@ -210,3 +210,47 @@ const supabase = await createClient();
   notFound();
  }
 }
+
+//get single video
+export async function getSingleVideo(slug: string) {
+ try{
+ 
+const supabase = await createClient();
+
+  const {data:video, error: videoError} = await supabase  
+  .from('videos')
+  .select('id, title, description, thumbnail_url, views, video_url, created_at, category_id, featured, cat_slug, video_slug')
+  .eq('video_slug', slug)
+  .single()
+
+  if(videoError) {
+    throw videoError;
+  }
+ 
+  return {video};
+ } catch(error){
+  console.error(error);
+  notFound();
+ }
+}
+
+//get all videos 
+export async function getAllVideos() {
+ try{
+ 
+const supabase = await createClient();
+
+  const {data:videos, error: videosError} = await supabase  
+  .from('videos')
+  .select('id, title, description, thumbnail_url, video_url, created_at, category_id, featured, cat_slug, views')
+
+  if(videosError) {
+    throw videosError;
+  } 
+ 
+  return {videos};
+ } catch(error){
+  console.error(error);
+  notFound();
+ }
+} 
