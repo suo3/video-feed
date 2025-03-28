@@ -143,7 +143,7 @@ const supabase = await createClient();
   // get videos for each category
   const {data:categoryVideos, error: categoryVideosError} = await supabase
   .from('videos')
-  .select('id, title, description, thumbnail_url, video_url, created_at, category_id, featured, cat_slug')
+  .select('id, title, description, thumbnail_url, video_url, created_at, category_id, featured, cat_slug, video_slug')
   .eq('cat_slug', slug)
 
   if(categoryVideosError) {

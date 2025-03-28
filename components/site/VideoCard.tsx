@@ -1,10 +1,10 @@
-'use client';
-import { useState } from 'react';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
-import { Play } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
+"use client";
+import { useState } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { Play } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 interface VideoCardProps {
   id: string;
@@ -13,7 +13,7 @@ interface VideoCardProps {
   video_url: string;
   category: string;
   slug: string;
-  size?: 'small' | 'medium' | 'large';
+  size?: "small" | "medium" | "large";
   showCategory?: boolean;
 }
 
@@ -24,29 +24,29 @@ export default function VideoCard({
   category,
   video_url,
   slug,
-  size = 'medium',
+  size = "medium",
   showCategory = true,
 }: VideoCardProps) {
   const sizeClasses = {
     small: {
-      container: 'h-44',
-      titleSize: 'text-sm font-medium line-clamp-2',
+      container: "h-44",
+      titleSize: "text-sm font-medium line-clamp-2",
     },
     medium: {
-      container: 'h-52',
-      titleSize: 'text-base font-medium line-clamp-2',
+      container: "h-52",
+      titleSize: "text-base font-medium line-clamp-2",
     },
     large: {
-      container: 'h-64 md:h-80',
-      titleSize: 'text-lg md:text-xl font-bold line-clamp-3',
+      container: "h-64 md:h-80",
+      titleSize: "text-lg md:text-xl font-bold line-clamp-3",
     },
   };
 
   return (
     <Card className="rounded-none border-0 overflow-hidden bg-transparent">
       <CardContent className="p-0">
-        <Link href={`/video/${slug}`} className="block">
-          <div className="relative w-full overflow-hidden group">
+        <div className="relative w-full overflow-hidden group">
+          <Link href={`/video/${slug}`} className="block">
             <div
               className={`relative w-full ${sizeClasses[size].container} overflow-hidden`}
             >
@@ -63,9 +63,11 @@ export default function VideoCard({
                 </div>
               </div>
             </div>
-            <div className="mt-2">
-              <h3 className={sizeClasses[size].titleSize}>{title}</h3>
-              {showCategory && (
+          </Link>
+          <div className="mt-2">
+            <h3 className={sizeClasses[size].titleSize}>{title}</h3>
+            {showCategory && (
+              <Link href={`/categories/${category.toLowerCase()}`}>
                 <div className="mt-1">
                   <Badge
                     variant="outline"
@@ -74,11 +76,10 @@ export default function VideoCard({
                     {category}
                   </Badge>
                 </div>
-              )}
-            </div>
+              </Link>
+            )}
           </div>
-        </Link>
-      
+        </div>
       </CardContent>
     </Card>
   );
