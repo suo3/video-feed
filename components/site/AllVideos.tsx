@@ -1,0 +1,99 @@
+"use client";
+
+import React from "react";
+import { useState } from "react";
+import VideoCard from "@/components/site/VideoCard";
+import { Badge } from "@/components/ui/badge";
+
+interface Video {
+  id: string;
+  description: string;
+  thumbnail_url: string;
+  video_url: string;
+  created_at: string;
+  category_id: string;
+  featured: boolean;
+  cat_slug: string;
+  title: string;
+  views: number;
+}
+
+interface Category {
+  id: string;
+  name: string;
+  slug: string;
+}
+export default function AllVideos({
+  categories,
+  videos,
+}: {
+  categories: Category[];
+  videos: Video[];
+}) {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  const filteredVideos = selectedCategory
+    ? videos.filter((video) => video.category_id === selectedCategory)
+    : videos;
+
+  console.log(selectedCategory);
+  return (
+    <div className="min-h-screen bg-white">
+      <div className="bg-gray-50 py-10">
+        <div className="container mx-auto px-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-center mb-2">
+            All Videos
+          </h1>
+          <p className="text-gray-600 text-center max-w-2xl mx-auto">
+            Explore our entire collection of videos from different categories
+          </p>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex flex-wrap items-center gap-2 mb-6">
+          <span className="text-sm font-medium">Filter by:</span>
+          <Badge
+            variant={selectedCategory === null ? "default" : "outline"}
+            className="cursor-pointer"
+            onClick={() => setSelectedCategory(null)}
+          >
+            All
+          </Badge>
+          {categories.map((category) => (
+            <Badge
+              key={category.id}
+              variant={selectedCategory === category.id ? "default" : "outline"}
+              className="cursor-pointer"
+              onClick={() => setSelectedCategory(category.id)}
+            >
+              {category.name}
+            </Badge>
+          ))}
+        </div>
+
+        {/* <Separator className="mb-8" /> */}
+
+        {filteredVideos.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredVideos.map((video) => (
+              <VideoCard
+                key={video.id}
+                id={video.id}
+                title={video.title}
+                thumbnail={video.thumbnail_url}
+                category={video.cat_slug}
+                slug={video.cat_slug}
+                video_url={video.video_url}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-10">
+            <p className="text-gray-500">No videos found for this category.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

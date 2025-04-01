@@ -1,23 +1,16 @@
+import { useState } from "react";
+import VideoCard from "@/components/site/VideoCard";
+import { Badge } from "@/components/ui/badge";
+import AllVideos from "@/components/site/AllVideos";
+import { getAllVideos, getCategories } from "../actions";
 
-import {createClient} from '@/utils/supabase/server'
-export default async function Videos() {
-    const supabase = await createClient();
-    const {data: videos} = await supabase.from('videos').select();
+export default async function VideosPage() {
+  const { categories } = await getCategories();
+  const { videos } = await getAllVideos();
 
-    const handleClick = async () => {
-  const { data, error } = await supabase
-    .from('videos')
-    .insert([{ title: 'New Video', url: 'https://example.com' }]);
-};
-    
-   
-    return(
-        <div>
-            <h1>Video List</h1>
-           {videos && <pre>{JSON.stringify(videos, null, 2)}</pre>}
-        </div>
-   
-    )
+  return (
+    <div className="min-h-screen bg-white">
+      <AllVideos categories={categories} videos={videos} />
+    </div>
+  );
 }
-
-
