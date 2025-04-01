@@ -4,6 +4,7 @@ import React from "react";
 import { useState } from "react";
 import VideoCard from "@/components/site/VideoCard";
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 
 interface Video {
   id: string;
@@ -14,6 +15,7 @@ interface Video {
   category_id: string;
   featured: boolean;
   cat_slug: string;
+  video_slug: string;
   title: string;
   views: number;
 }
@@ -77,15 +79,16 @@ export default function AllVideos({
         {filteredVideos.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredVideos.map((video) => (
-              <VideoCard
-                key={video.id}
-                id={video.id}
-                title={video.title}
-                thumbnail={video.thumbnail_url}
-                category={video.cat_slug}
-                slug={video.cat_slug}
-                video_url={video.video_url}
-              />
+              <Link key={video.id} href={`/video/${video.video_slug}`}>
+                <VideoCard
+                  id={video.id}
+                  title={video.title}
+                  thumbnail={video.thumbnail_url}
+                  category={video.cat_slug}
+                  slug={video.video_slug}
+                  video_url={video.video_url}
+                />
+              </Link>
             ))}
           </div>
         ) : (

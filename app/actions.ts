@@ -5,7 +5,7 @@ import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { notFound } from "next/navigation";
-import { NextRequest, NextResponse} from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -17,7 +17,7 @@ export const signUpAction = async (formData: FormData) => {
     return encodedRedirect(
       "error",
       "/sign-up",
-      "Email and password are required",
+      "Email and password are required"
     );
   }
 
@@ -36,7 +36,7 @@ export const signUpAction = async (formData: FormData) => {
     return encodedRedirect(
       "success",
       "/sign-up",
-      "Thanks for signing up! Please check your email for a verification link.",
+      "Thanks for signing up! Please check your email for a verification link."
     );
   }
 };
@@ -77,7 +77,7 @@ export const forgotPasswordAction = async (formData: FormData) => {
     return encodedRedirect(
       "error",
       "/forgot-password",
-      "Could not reset password",
+      "Could not reset password"
     );
   }
 
@@ -88,7 +88,7 @@ export const forgotPasswordAction = async (formData: FormData) => {
   return encodedRedirect(
     "success",
     "/forgot-password",
-    "Check your email for a link to reset your password.",
+    "Check your email for a link to reset your password."
   );
 };
 
@@ -102,7 +102,7 @@ export const resetPasswordAction = async (formData: FormData) => {
     encodedRedirect(
       "error",
       "/protected/reset-password",
-      "Password and confirm password are required",
+      "Password and confirm password are required"
     );
   }
 
@@ -110,7 +110,7 @@ export const resetPasswordAction = async (formData: FormData) => {
     encodedRedirect(
       "error",
       "/protected/reset-password",
-      "Passwords do not match",
+      "Passwords do not match"
     );
   }
 
@@ -122,7 +122,7 @@ export const resetPasswordAction = async (formData: FormData) => {
     encodedRedirect(
       "error",
       "/protected/reset-password",
-      "Password update failed",
+      "Password update failed"
     );
   }
 
@@ -135,122 +135,123 @@ export const signOutAction = async () => {
   return redirect("/sign-in");
 };
 
+export async function getCategoryVideosAction(slug?: string) {
+  try {
+    const supabase = await createClient();
+    // get videos for each category
+    const { data: categoryVideos, error: categoryVideosError } = await supabase
+      .from("videos")
+      .select(
+        "id, title, description, thumbnail_url, video_url, created_at, category_id, featured, cat_slug, video_slug"
+      )
+      .eq("cat_slug", slug);
 
+    if (categoryVideosError) {
+      throw categoryVideosError;
+    }
 
-export async function getCategoryVideosAction( slug?: string) {
- try{
-const supabase = await createClient();
-  // get videos for each category
-  const {data:categoryVideos, error: categoryVideosError} = await supabase
-  .from('videos')
-  .select('id, title, description, thumbnail_url, video_url, created_at, category_id, featured, cat_slug, video_slug')
-  .eq('cat_slug', slug)
+    // get category name
+    const { data: categoryName, error: categoryNameError } = await supabase
+      .from("categories")
+      .select("name, description")
+      .eq("slug", slug);
 
-  if(categoryVideosError) {
-    throw categoryVideosError;
+    if (categoryNameError) {
+      throw categoryNameError;
+    }
+
+    return { categoryVideos, categoryName };
+  } catch (error) {
+    console.error(error);
+    notFound();
   }
-
-  // get category name 
-  const {data:categoryName, error: categoryNameError} = await supabase
-  .from('categories')
-  .select('name, description')
-  .eq('slug', slug)
-
-  if(categoryNameError) {
-    throw categoryNameError;
-  }
-
-  return { categoryVideos, categoryName};
- } catch(error){
-  console.error(error);
-  notFound();
- }
 }
 
-
-
 export async function getCategories() {
- try{
-const supabase = await createClient();
+  try {
+    const supabase = await createClient();
 
-  // get all categories
-  const {data:categories, error: categoriesError} = await supabase
-  .from('categories')
-  .select('id, name, description, slug')
+    // get all categories
+    const { data: categories, error: categoriesError } = await supabase
+      .from("categories")
+      .select("id, name, description, slug");
 
-  if(categoriesError) {
-    throw categoriesError;
+    if (categoriesError) {
+      throw categoriesError;
+    }
+
+    return { categories };
+  } catch (error) {
+    console.error(error);
+    notFound();
   }
- 
-  return {categories};
- } catch(error){
-  console.error(error);
-  notFound();
- }
 }
 
 //get all featured videos
 export async function getFeaturedVideos() {
- try{
- 
-const supabase = await createClient();
+  try {
+    const supabase = await createClient();
 
-  const {data:featuredVideos, error: featuredVideosError} = await supabase  
-  .from('videos')
-  .select('id, title, description, thumbnail_url, video_url, created_at, category_id, featured, cat_slug')
-  .eq('featured', true)
+    const { data: featuredVideos, error: featuredVideosError } = await supabase
+      .from("videos")
+      .select(
+        "id, title, description, thumbnail_url, video_url, created_at, category_id, featured, cat_slug"
+      )
+      .eq("featured", true);
 
-  if(featuredVideosError) {
-    throw featuredVideosError;
+    if (featuredVideosError) {
+      throw featuredVideosError;
+    }
+
+    return { featuredVideos };
+  } catch (error) {
+    console.error(error);
+    notFound();
   }
- 
-  return {featuredVideos};
- } catch(error){
-  console.error(error);
-  notFound();
- }
 }
 
 //get single video
 export async function getSingleVideo(slug: string) {
- try{
- 
-const supabase = await createClient();
+  try {
+    const supabase = await createClient();
 
-  const {data:video, error: videoError} = await supabase  
-  .from('videos')
-  .select('id, title, description, thumbnail_url, views, video_url, created_at, category_id, featured, cat_slug, video_slug')
-  .eq('video_slug', slug)
-  .single()
+    const { data: video, error: videoError } = await supabase
+      .from("videos")
+      .select(
+        "id, title, description, thumbnail_url, views, video_url, created_at, category_id, featured, cat_slug, video_slug"
+      )
+      .eq("video_slug", slug)
+      .single();
 
-  if(videoError) {
-    throw videoError;
+    if (videoError) {
+      throw videoError;
+    }
+
+    return { video };
+  } catch (error) {
+    console.error(error);
+    notFound();
   }
- 
-  return {video};
- } catch(error){
-  console.error(error);
-  notFound();
- }
 }
 
-//get all videos 
+//get all videos
 export async function getAllVideos() {
- try{
- 
-const supabase = await createClient();
+  try {
+    const supabase = await createClient();
 
-  const {data:videos, error: videosError} = await supabase  
-  .from('videos')
-  .select('id, title, description, thumbnail_url, video_url, created_at, category_id, featured, cat_slug, views')
+    const { data: videos, error: videosError } = await supabase
+      .from("videos")
+      .select(
+        "id, title, description, thumbnail_url, video_url, created_at, category_id, featured, cat_slug, views, video_slug"
+      );
 
-  if(videosError) {
-    throw videosError;
-  } 
- 
-  return {videos};
- } catch(error){
-  console.error(error);
-  notFound();
- }
-} 
+    if (videosError) {
+      throw videosError;
+    }
+
+    return { videos };
+  } catch (error) {
+    console.error(error);
+    notFound();
+  }
+}
