@@ -6,6 +6,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { notFound } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
+import { title } from "process";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -252,6 +253,39 @@ export async function getAllVideos() {
     return { videos };
   } catch (error) {
     console.error(error);
+    notFound();
+  }
+}
+
+//add a new video
+export async function addVideoAction(formData: FormData) {
+  try {
+    const supabase = await createClient();
+    const user = await supabase.auth.getUser();
+
+    if (user) {
+      const { data, error } = await supabase.from("videos").insert({
+        title: formData.title,
+        description: formData.description,
+        thumbnail_url: formData.thumbnail_url,
+        video_url: formData.video_url,
+        category_id: formData.category_id,
+        featured: formData.featured,
+        cat_slug: formData.cat_slug,
+        video_slug: formData.video_slug,
+        user_id: user.data.user?.id,
+      });
+
+      if (error) {
+        console.error("Error inserting data:", error);
+      } else {
+        console.log("Data inserted successfully:", data);
+      }
+    } else {
+      console.log("not logged in");
+    }
+  } catch (error) {
+    console.error("Error adding video:", error);
     notFound();
   }
 }

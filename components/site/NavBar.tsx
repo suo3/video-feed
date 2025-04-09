@@ -5,6 +5,7 @@ import { EnvVarWarning } from "@/components/env-var-warning";
 import HeaderAuth from "@/components/header-auth";
 import { hasEnvVars } from "@/utils/supabase/check-env-vars";
 import { cn } from "@/lib/utils";
+import { PlusCircle } from "lucide-react";
 
 export const NavBar = async () => {
   const { categories } = await getCategories();
@@ -34,6 +35,18 @@ export const NavBar = async () => {
           href="/videos"
         >
           All Videos
+        </Link>
+      </div>
+      <div>
+        {" "}
+        <Link
+          href="/add-video"
+          className="block py-2 text-sm font-medium text-purple-600 hover:text-purple-800 transition-colors"
+        >
+          <span className="flex items-center">
+            <PlusCircle className="h-4 w-4 mr-1" />
+            Add Video
+          </span>
         </Link>
       </div>
       {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
