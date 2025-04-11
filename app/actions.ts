@@ -196,7 +196,7 @@ export async function getFeaturedVideos() {
     const { data: featuredVideos, error: featuredVideosError } = await supabase
       .from("videos")
       .select(
-        "id, title, description, thumbnail_url, video_url, created_at, category_id, featured, cat_slug"
+        "id, title, description, thumbnail_url, video_url, video_slug, created_at, category_id, featured, cat_slug"
       )
       .eq("featured", true);
 
@@ -219,7 +219,7 @@ export async function getSingleVideo(slug: string) {
     const { data: video, error: videoError } = await supabase
       .from("videos")
       .select(
-        "id, title, description, thumbnail_url, views, video_url, created_at, category_id, featured, cat_slug, video_slug"
+        "id, title, description, thumbnail_url,  video_url, created_at, category_id, featured, cat_slug, video_slug"
       )
       .eq("video_slug", slug)
       .single();
@@ -243,7 +243,7 @@ export async function getAllVideos() {
     const { data: videos, error: videosError } = await supabase
       .from("videos")
       .select(
-        "id, title, description, thumbnail_url, video_url, created_at, category_id, featured, cat_slug, views, video_slug"
+        "id, title, description, thumbnail_url, video_url, created_at, category_id, featured, cat_slug,  video_slug"
       );
 
     if (videosError) {
@@ -272,7 +272,6 @@ export async function addVideoAction(formData: FormData) {
         category_id: formData.category_id,
         featured: formData.featured,
         cat_slug: formData.cat_slug,
-        video_slug: formData.video_slug,
         user_id: user.data.user?.id,
       });
 

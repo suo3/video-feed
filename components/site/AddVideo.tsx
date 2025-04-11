@@ -61,7 +61,7 @@ export default function AddVideo({
     isFeatured: false,
     videoUrl: "",
   });
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
+
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
 
   const handleInputChange = (
@@ -84,10 +84,8 @@ export default function AddVideo({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
+    const catSlug = cats[formData.category as keyof typeof cats].toLowerCase();
     try {
-      // In a real app, this would upload to Supabase
-
       await addVideoAction({
         title: formData.title,
         description: formData.description,
@@ -95,13 +93,9 @@ export default function AddVideo({
         video_url: formData.videoUrl,
         category_id: Number(formData.category),
         featured: Boolean(formData.isFeatured), // Convert to boolean formData.isFeatured,
-        cat_slug: Number(formData.category),
+        cat_slug: catSlug,
         video_slug: formData.title,
       });
-      await new Promise((resolve) => setTimeout(resolve, 2500));
-
-      // Success - redirect to home
-      console.log("Video submitted successfully!");
       router.push("/");
     } catch (error) {
       console.error("Error submitting video:", error);
@@ -111,7 +105,6 @@ export default function AddVideo({
     }
   };
 
-  console.log(formData.isFeatured);
   return (
     <div className="min-h-screen bg-white">
       <div className="bg-gray-50 py-10">

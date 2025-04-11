@@ -17,11 +17,11 @@ export const NavBar = async () => {
           <VideoFeedLogo />
         </Link>
       </div>
-      <div>
+      <div className="hidden md:block">
         {categories.map((category) => (
           <Link
             key={category.name}
-            className="uppercase mr-3 font-semibold hover:underline"
+            className="titlecase mr-3 font-semibold hover:underline"
             href={`/categories/${category.slug}`}
           >
             {category.name}
@@ -37,7 +37,7 @@ export const NavBar = async () => {
           All Videos
         </Link>
       </div>
-      <div>
+      <div className="hidden md:block">
         {" "}
         <Link
           href="/add-video"
@@ -49,7 +49,9 @@ export const NavBar = async () => {
           </span>
         </Link>
       </div>
-      {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
+      <div className="hidden md:block">
+        {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
+      </div>
     </div>
   );
 };
