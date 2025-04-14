@@ -52,7 +52,6 @@ export default async function VideoDetailPage(props: {
           <div className="lg:col-span-2">
             <SingleVideoCard
               description={video.description}
-              views={video.views}
               date={video.created_at.split("T")[0]}
               id={video.id}
               title={video.title}

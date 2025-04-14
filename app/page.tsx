@@ -10,17 +10,13 @@ export default async function Home() {
   const { featuredVideos: videos } = await getFeaturedVideos();
   return (
     <>
-     {/*  <Hero  /> */}
+      {/*  <Hero  /> */}
       <VideoCarousel videos={videos} />
       <main className="flex-1 flex flex-col gap-6 px-4">
+        <FeaturedVideos videos={videos} />
 
-        
-        <FeaturedVideos
-          videos={videos}
-         />
-      
-        <h2 className="font-medium text-xl mb-4">Next steps s</h2>
-        {hasEnvVars ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
+        {/*  <h2 className="font-medium text-xl mb-4">Next steps s</h2>
+        {hasEnvVars ? <SignUpUserSteps /> : <ConnectSupabaseSteps />} */}
       </main>
     </>
   );

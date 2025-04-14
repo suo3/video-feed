@@ -14,6 +14,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import YouTubePlayer from "./YoutubePlayer";
+import { Separator } from "@radix-ui/react-dropdown-menu";
 
 interface VideoCardProps {
   id: string;
@@ -84,18 +85,6 @@ export default function SingleVideoCard({
                 <span>{date}</span>
               </div>
               <span>•</span>
-              <span>{views} views</span>
-            </div>
-
-            <div className="flex flex-wrap gap-4 mb-6">
-              <button className="flex items-center gap-1 text-gray-600 hover:text-gray-900">
-                <ThumbsUp className="h-5 w-5" />
-                <span>Like</span>
-              </button>
-              <button className="flex items-center gap-1 text-gray-600 hover:text-gray-900">
-                <MessageSquare className="h-5 w-5" />
-                <span>Comment</span>
-              </button>
               <button
                 className="flex items-center gap-1 text-gray-600 hover:text-gray-900"
                 onClick={() => {
@@ -107,7 +96,7 @@ export default function SingleVideoCard({
               </button>
             </div>
 
-            {/*  <Separator className="mb-6" /> */}
+            <Separator className="mb-6" />
 
             <div>
               <Badge
