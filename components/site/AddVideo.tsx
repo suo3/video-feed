@@ -33,10 +33,12 @@ interface Category {
 interface addNewVideo {
   title: string;
   description: string;
-  category: string;
-  thumbnail: string;
-  isFeatured: boolean;
-  videoUrl: string;
+  thumbnail_url: string;
+  video_url: string;
+  category_id: number;
+  featured: boolean;
+  cat_slug: string;
+  video_slug: string;
 }
 const cats = {
   "15": "Entertainment",
@@ -77,7 +79,6 @@ export default function AddVideo({
     }
   };
   const handleSelectChange = (value: string) => {
-    console.log(value);
     setFormData((prev) => ({ ...prev, category: value }));
   };
 

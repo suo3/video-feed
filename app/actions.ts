@@ -5,12 +5,21 @@ import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { notFound } from "next/navigation";
-import { NextRequest, NextResponse } from "next/server";
 import { title } from "process";
 
-export const signUpAction = async (formData: FormData) => {
-  const email = formData.get("email")?.toString();
-  const password = formData.get("password")?.toString();
+interface VideoData {
+  title: string;
+  description: string;
+  thumbnail_url: string;
+  video_url: string;
+  category_id: number;
+  featured: boolean;
+  cat_slug: string;
+  user_id: number;
+}
+export const signUpAction = async (data: any) => {
+  const email = data.get("email")?.toString();
+  const password = data.get("password")?.toString();
   const supabase = await createClient();
   const origin = (await headers()).get("origin");
 
@@ -42,9 +51,9 @@ export const signUpAction = async (formData: FormData) => {
   }
 };
 
-export const signInAction = async (formData: FormData) => {
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
+export const signInAction = async (data: any) => {
+  const email = data.get("email") as string;
+  const password = data.get("password") as string;
   const supabase = await createClient();
 
   const { error } = await supabase.auth.signInWithPassword({
@@ -56,14 +65,14 @@ export const signInAction = async (formData: FormData) => {
     return encodedRedirect("error", "/sign-in", error.message);
   }
 
-  return redirect("/protected");
+  return redirect("/");
 };
 
-export const forgotPasswordAction = async (formData: FormData) => {
-  const email = formData.get("email")?.toString();
+export const forgotPasswordAction = async (data: any) => {
+  const email = data.get("email")?.toString();
   const supabase = await createClient();
   const origin = (await headers()).get("origin");
-  const callbackUrl = formData.get("callbackUrl")?.toString();
+  const callbackUrl = data.get("callbackUrl")?.toString();
 
   if (!email) {
     return encodedRedirect("error", "/forgot-password", "Email is required");
@@ -93,11 +102,11 @@ export const forgotPasswordAction = async (formData: FormData) => {
   );
 };
 
-export const resetPasswordAction = async (formData: FormData) => {
+export const resetPasswordAction = async (data: any) => {
   const supabase = await createClient();
 
-  const password = formData.get("password") as string;
-  const confirmPassword = formData.get("confirmPassword") as string;
+  const password = data.get("password") as string;
+  const confirmPassword = data.get("confirmPassword") as string;
 
   if (!password || !confirmPassword) {
     encodedRedirect(
@@ -258,20 +267,20 @@ export async function getAllVideos() {
 }
 
 //add a new video
-export async function addVideoAction(formData: FormData) {
+export async function addVideoAction(data: VideoData) {
   try {
     const supabase = await createClient();
     const user = await supabase.auth.getUser();
 
     if (user) {
-      const { data, error } = await supabase.from("videos").insert({
-        title: formData.title,
-        description: formData.description,
-        thumbnail_url: formData.thumbnail_url,
-        video_url: formData.video_url,
-        category_id: formData.category_id,
-        featured: formData.featured,
-        cat_slug: formData.cat_slug,
+      const { error } = await supabase.from("videos").insert({
+        title: data.title,
+        description: data.description,
+        thumbnail_url: data.thumbnail_url,
+        video_url: data.video_url,
+        category_id: data.category_id,
+        featured: data.featured,
+        cat_slug: data.cat_slug,
         user_id: user.data.user?.id,
       });
 
@@ -285,6 +294,25 @@ export async function addVideoAction(formData: FormData) {
     }
   } catch (error) {
     console.error("Error adding video:", error);
+    notFound();
+  }
+}
+
+// subscribe to newsletter
+export async function subscribeToNewsletterAction(email: string) {
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("subscriptions")
+      .insert({ email });
+
+    if (error) {
+      console.error("Error subscribing to newsletter:", error);
+    } else {
+      console.log("Subscribed to newsletter successfully:", data);
+    }
+  } catch (error) {
+    console.error("Error subscribing to newsletter:", error);
     notFound();
   }
 }
