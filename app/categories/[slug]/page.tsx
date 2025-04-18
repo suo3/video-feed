@@ -12,9 +12,7 @@ async function CategoryPage(props: { params: Promise<{ slug: string }> }) {
 
   const renderedVideos = slug === "all-videos" ? videos : categoryVideos;
   return (
-    <div className="mx-auto p-0 w-full">
-      {/* <h1 className="text-3xl font-bold mb-4">{categoryName[0].name}</h1>
-      {categoryName[0].description && <p className="text-gray-600 mb-6">{categoryName[0].description}</p>} */}
+    <div className="mx-auto p-0  min-h-screen w-full">
       <div className="bg-gray-50 py-10 w-full">
         <div className="container mx-auto px-4">
           <h1 className="text-3xl md:text-4xl font-bold text-center mb-2">

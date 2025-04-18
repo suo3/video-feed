@@ -23,7 +23,7 @@ export const Footer = async () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="w-full max-w-5xl container ps-2">
             <Link href="/" className="flex items-center mb-4">
-              <span className="text-2xl font-bold text-red-500">V</span>
+              <span className="text-2xl font-bold text-purple-500">V</span>
               <span className="text-2xl font-bold text-white">LOG</span>
             </Link>
             <p className="text-sm text-gray-300 mb-4">
