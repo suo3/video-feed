@@ -6,17 +6,27 @@ import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
 import { addCommentAction, getVideoComments } from "@/app/actions";
 import { useParams } from "next/navigation";
+import { User, UserPlus, Users, UserRoundIcon } from "lucide-react";
 
+interface Comment {
+  id: any;
+  content: any;
+  video_slug: any;
+  created_at: any;
+  author: any;
+}
 export default function CommentSection() {
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState("");
 
   const { slug } = useParams();
 
   const fetchComments = async () => {
     try {
-      const { comments } = await getVideoComments(slug.toString());
-      setComments(comments);
+      if (slug !== undefined) {
+        const { comments } = await getVideoComments(slug.toString());
+        setComments(comments);
+      }
     } catch (error) {
       console.error("Error fetching comments:", error);
     }
@@ -28,7 +38,7 @@ export default function CommentSection() {
 
     // Add new comment to the list
     const comment = {
-      video_slug: slug.toString(),
+      video_slug: slug && slug.toString(),
       content: newComment,
     };
     await addCommentAction(comment);
@@ -40,7 +50,7 @@ export default function CommentSection() {
     fetchComments();
   }, [slug]);
   return (
-    <div className="max-w-4xl mx-auto px-4">
+    <div className="max-w-4xl mx-auto px-1">
       <h2 className="text-xl font-semibold mb-4">Comments</h2>
 
       <form onSubmit={handleSubmitComment} className="mb-6">
@@ -69,14 +79,8 @@ export default function CommentSection() {
       <div className="space-y-6">
         {comments?.length > 0 ? (
           comments.map((comment) => (
-            <div key={comment.id} className="flex gap-3">
-              <Image
-                className="h-10 w-10"
-                width={10}
-                height={10}
-                src={comment.authorImage || "/placeholder.svg"}
-                alt={comment.author}
-              />
+            <div key={comment.id} className="flex gap-3 border-b pb-4">
+              <UserRoundIcon className="h-10 w-10 p-2 rounded-full bg-purple-300" />
 
               <div>
                 <div className="flex items-center gap-2">

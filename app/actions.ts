@@ -20,7 +20,7 @@ interface VideoData {
 
 interface CommentData {
   content: string;
-  video_slug: string;
+  video_slug: string | undefined;
 }
 
 export const signUpAction = async (data: any) => {
