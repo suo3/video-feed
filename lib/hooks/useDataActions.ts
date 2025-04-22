@@ -1,4 +1,4 @@
-
+/* 
 import { getVideosAction } from '@/app/actions'
 import { useParams } from 'next/navigation';
 
@@ -16,4 +16,4 @@ const useDataActions = async () => {
   return { videos: filteredVideos, categories };
 }
 
-export default useDataActions;
+export default useDataActions; */

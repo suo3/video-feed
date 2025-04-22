@@ -5,6 +5,7 @@ import Image from "next/image";
 import { getSingleVideo } from "@/app/actions";
 import { getAllVideos } from "@/app/actions";
 import SingleVideoCard from "@/components/site/SingleVideoCard";
+import CommentSection from "@/components/site/CommentSection";
 
 interface Video {
   id: number;
@@ -62,15 +63,8 @@ export default async function VideoDetailPage(props: {
             />
 
             <div className="mt-10">
-              <h2 className="text-xl font-bold mb-4">Comments</h2>
-              <div className="space-y-4">
-                {/* Placeholder for comments */}
-                <div className="p-4 bg-gray-50 rounded-md">
-                  <p className="text-center text-gray-500">
-                    No comments yet. Be the first to comment!
-                  </p>
-                </div>
-              </div>
+              {/* Placeholder for comments */}
+              <CommentSection />
             </div>
           </div>
 

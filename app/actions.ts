@@ -17,6 +17,12 @@ interface VideoData {
   cat_slug: string;
   user_id: number;
 }
+
+interface CommentData {
+  content: string;
+  video_slug: string;
+}
+
 export const signUpAction = async (data: any) => {
   const email = data.get("email")?.toString();
   const password = data.get("password")?.toString();
@@ -313,6 +319,47 @@ export async function subscribeToNewsletterAction(email: string) {
     }
   } catch (error) {
     console.error("Error subscribing to newsletter:", error);
+    notFound();
+  }
+}
+
+export async function getVideoComments(videoSlug: string) {
+  try {
+    const supabase = await createClient();
+
+    const { data: comments, error: commentsError } = await supabase
+      .from("comments")
+      .select("id, content, video_slug, created_at, author")
+      .eq("video_slug", videoSlug);
+
+    if (commentsError) {
+      throw commentsError;
+    }
+
+    return { comments };
+  } catch (error) {
+    console.error(error);
+    notFound();
+  }
+}
+
+export async function addCommentAction(data: CommentData) {
+  try {
+    const supabase = await createClient();
+    const user = await supabase.auth.getUser();
+    const { error } = await supabase.from("comments").insert({
+      content: data.content,
+      video_slug: data.video_slug,
+      author: user.data.user?.email,
+    });
+
+    if (error) {
+      console.error("Error inserting data:", error);
+    } else {
+      console.log("Data inserted successfully:", data);
+    }
+  } catch (error) {
+    console.error("Error adding comment:", error);
     notFound();
   }
 }

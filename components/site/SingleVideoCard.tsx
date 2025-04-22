@@ -24,7 +24,6 @@ interface VideoCardProps {
   category: string;
   description: string;
   date: string;
-  views: number;
   slug: string;
   size?: "small" | "medium" | "large";
   showCategory?: boolean;
@@ -36,7 +35,6 @@ export default function SingleVideoCard({
   video_url,
   date,
   description,
-  views,
 }: VideoCardProps) {
   const [cinemaMode, setCinemaMode] = useState<string | null>(null);
 

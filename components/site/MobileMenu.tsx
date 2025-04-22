@@ -36,7 +36,7 @@ export const MobileMenu = ({
       </div>
       {/* Mobile menu, show/hide based on menu state */}
       {isMenuOpen && (
-        <div className="md:hidden absolute left-0 mt-3 w-full bg-white">
+        <div className="md:hidden absolute h-full z-10 left-0 mt-3 w-full bg-white">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t">
             {categories.map((cat) => (
               <Link
