@@ -5,10 +5,9 @@ import SingleVideoCard from "@/components/site/SingleVideoCard";
 import CommentSection from "@/components/site/CommentSection";
 
 export default async function VideoDetailPage(props: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
   const { slug } = await props.params;
-  console.log("slug", slug);
 
   const { video } = await getSingleVideo(slug);
   const { videos } = await getAllVideos();
