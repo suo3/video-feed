@@ -1,4 +1,4 @@
-import { getCategories, addVideoAction } from "../actions";
+import { getCategories } from "../actions";
 import AddVideo from "@/components/site/AddVideo";
 
 interface VideoFormData {
@@ -9,17 +9,8 @@ interface VideoFormData {
   isFeatured: boolean;
   videoUrl: string;
 }
-export default async function AddVideoPage({
-  formData,
-}: {
-  formData: VideoFormData;
-}) {
+export default async function AddVideoPage() {
   const { categories } = await getCategories();
-  console.log(formData);
 
-  const handleAddVideo = async () => {
-    await addVideoAction(formData);
-  };
-
-  return <AddVideo categories={categories} /* addVideo={handleAddVideo()} */ />;
+  return <AddVideo categories={categories} />;
 }

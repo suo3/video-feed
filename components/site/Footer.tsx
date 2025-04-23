@@ -34,25 +34,25 @@ export const Footer = async () => {
             <div className="flex space-x-3">
               <a
                 href="#"
-                className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center hover:bg-red-500 transition-colors"
+                className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center hover:bg-purple-500 transition-colors"
               >
                 <Facebook className="h-4 w-4" />
               </a>
               <a
                 href="#"
-                className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center hover:bg-red-500 transition-colors"
+                className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center hover:bg-purple-500 transition-colors"
               >
                 <Twitter className="h-4 w-4" />
               </a>
               <a
                 href="#"
-                className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center hover:bg-red-500 transition-colors"
+                className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center hover:bg-purple-500 transition-colors"
               >
                 <Instagram className="h-4 w-4" />
               </a>
               <a
                 href="#"
-                className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center hover:bg-red-500 transition-colors"
+                className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center hover:bg-purple-500 transition-colors"
               >
                 <Youtube className="h-4 w-4" />
               </a>
