@@ -95,7 +95,6 @@ export default function AddVideo({
         category_id: Number(formData.category),
         featured: Boolean(formData.isFeatured), // Convert to boolean formData.isFeatured,
         cat_slug: catSlug,
-        video_slug: formData.title,
       });
       router.push("/");
     } catch (error) {

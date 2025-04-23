@@ -15,7 +15,7 @@ interface VideoData {
   category_id: number;
   featured: boolean;
   cat_slug: string;
-  user_id: number;
+  user_id?: number;
 }
 
 interface CommentData {
