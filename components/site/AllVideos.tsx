@@ -17,7 +17,6 @@ interface Video {
   cat_slug: string;
   video_slug: string;
   title: string;
-  views: number;
 }
 
 interface Category {
