@@ -12,7 +12,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { PlayCircle } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 import YouTubePlayer from "./YoutubePlayer";
-import FeaturedVideoHeader from "./FeaturedVideoHeader";
 
 interface Video {
   id: number;
@@ -72,21 +71,13 @@ export default function VideoCarousel({ videos }: { videos: Video[] }) {
                       </h3>
                       <button
                         onClick={() => enterCinemaMode(video.thumbnail_url)}
-                        className="p-2 bg-white bg-opacity-90 rounded-full text-black hover:bg-opacity-100 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
+                        className="p-2 bg-purple-500 bg-opacity-90 rounded-full text-black hover:bg-purple-600 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
                         aria-label={`Play ${video.title} in cinema mode`}
                       >
                         <PlayCircle className="w-12 h-12" />
                       </button>
                     </div>
                   </CardContent>
-                  {/* <FeaturedVideoHeader
-                    category={video.cat_slug}
-                    title={video.title}
-                    author="Samuel Osseo-Asare"
-                    date={video.created_at}
-                    commentCount={0}
-                    onCinemaMode={() => enterCinemaMode(video.thumbnail_url)}
-                  /> */}
                 </Card>
               </CarouselItem>
             ))}

@@ -39,10 +39,7 @@ export default function RootLayout({
               <nav className="w-full flex justify-center border-b border-b-foreground/10 h-18">
                 <NavBar />
               </nav>
-              {/* Hero Header */}
-              {/* <div className="flex color-white hero flex-col gap-10 w-full bg-black min-h-[500px]">
-               {<Header videos={[]} />}
-              </div> */}
+
               <div className="w-full flex flex-col gap-3  px-0">{children}</div>
 
               <Footer />

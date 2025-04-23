@@ -1,29 +1,13 @@
 import VideoCard from "@/components/site/VideoCard";
-import { Badge } from "@/components/ui/badge";
-
-import Image from "next/image";
 import { getSingleVideo } from "@/app/actions";
 import { getAllVideos } from "@/app/actions";
 import SingleVideoCard from "@/components/site/SingleVideoCard";
 import CommentSection from "@/components/site/CommentSection";
 
-interface Video {
-  id: number;
-  description: string;
-  thumbnail_url: string;
-  video_url: string;
-  created_at: string;
-  category_id: number;
-  featured: boolean;
-  cat_slug: string;
-  title: string;
-  views: number;
-}
 export default async function VideoDetailPage(props: {
   params: { slug: string };
 }) {
-  const params = await props.params;
-  const slug = params.slug.trim();
+  const { slug } = await props.params;
   console.log("slug", slug);
 
   const { video } = await getSingleVideo(slug);
@@ -63,7 +47,6 @@ export default async function VideoDetailPage(props: {
             />
 
             <div className="mt-10">
-              {/* Placeholder for comments */}
               <CommentSection />
             </div>
           </div>
