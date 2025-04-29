@@ -65,7 +65,7 @@ export const Footer = async () => {
               {videos.slice(0, 5).map((item) => (
                 <li key={item.id}>
                   <Link
-                    href={`/video/most-viewed-${item}`}
+                    href={`/video/${item.video_slug}`}
                     className="text-sm text-gray-300 hover:text-white hover:underline flex items-start"
                   >
                     <span className="text-red-500 mr-2">•</span>

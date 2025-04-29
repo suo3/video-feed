@@ -30,7 +30,7 @@ export default async function VideoDetailPage(props: {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="dark:bg-black dark:border-b border-b-foreground/10 min-h-screen bg-white">
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">

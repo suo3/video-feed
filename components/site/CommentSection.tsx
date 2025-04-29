@@ -80,7 +80,7 @@ export default function CommentSection() {
         {comments?.length > 0 ? (
           comments.map((comment) => (
             <div key={comment.id} className="flex gap-3 border-b pb-4">
-              <UserRoundIcon className="h-10 w-10 p-2 rounded-full bg-purple-300" />
+              <UserRoundIcon className="dark:bg-purple-600 h-10 w-10 p-2 rounded-full bg-purple-300" />
 
               <div>
                 <div className="flex items-center gap-2">

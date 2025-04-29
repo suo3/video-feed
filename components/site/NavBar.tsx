@@ -22,14 +22,14 @@ export const NavBar = async () => {
         {categories.map((category) => (
           <Link
             key={category.name}
-            className="capitalize mr-3 text-gray-900 text-base font-medium hover:text-purple-600 transition-colors"
+            className="dark:text-white capitalize mr-3 text-gray-900 text-base font-medium hover:text-purple-600 transition-colors"
             href={`/categories/${category.slug}`}
           >
             {category.name}
           </Link>
         ))}
         <Link
-          className="capitalize mr-3 text-gray-900 text-base font-medium hover:text-purple-600 transition-colors"
+          className="dark:text-white capitalize mr-3 text-gray-900 text-base font-medium hover:text-purple-600 transition-colors"
           href="/videos"
         >
           All Videos

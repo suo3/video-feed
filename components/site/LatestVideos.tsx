@@ -71,7 +71,7 @@ export default async function LatestVideos() {
 
       <div className="flex justify-center mt-8">
         <Link href={`/videos`} className="hover:underline capitalize">
-          <button className="border border-gray-300 px-6 py-2 rounded hover:bg-gray-50 transition-colors">
+          <button className="border dark:hover:bg-gray-900 border-gray-300 px-6 py-2 rounded hover:bg-gray-50 transition-colors">
             LOAD MORE
           </button>
         </Link>
