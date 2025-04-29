@@ -3,10 +3,9 @@ import type React from "react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import Image from "next/image";
 import { addCommentAction, getVideoComments } from "@/app/actions";
 import { useParams } from "next/navigation";
-import { User, UserPlus, Users, UserRoundIcon } from "lucide-react";
+import { UserRoundIcon } from "lucide-react";
 
 interface Comment {
   id: any;

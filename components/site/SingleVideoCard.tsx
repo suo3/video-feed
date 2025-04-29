@@ -51,7 +51,7 @@ export default function SingleVideoCard({
         url: url,
       });
     } else if ("addToHomescreen" in window) {
-      window.addToHomescreen();
+      (window.addToHomescreen as () => void)();
     } else {
       alert(`Press Ctrl+D (or Cmd+D on a Mac) to bookmark this page`);
     }

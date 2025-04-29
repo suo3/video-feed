@@ -4,9 +4,8 @@ import VideoFeedLogo from "@/components/video-feed-logo";
 import { EnvVarWarning } from "@/components/env-var-warning";
 import HeaderAuth from "@/components/header-auth";
 import { hasEnvVars } from "@/utils/supabase/check-env-vars";
-import { cn } from "@/lib/utils";
 import { MobileMenu } from "./MobileMenu";
-import { PlusCircle, X, Menu } from "lucide-react";
+import { PlusCircle } from "lucide-react";
 
 export const NavBar = async () => {
   const { categories } = await getCategories();
@@ -46,7 +45,7 @@ export const NavBar = async () => {
         </Link>
       </div>
 
-      <div className="flexitems-center ">
+      <div className="flex items-center ">
         <div className="hidden md:flex">
           {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
         </div>

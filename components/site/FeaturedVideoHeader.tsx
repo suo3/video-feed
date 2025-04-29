@@ -1,6 +1,6 @@
 "use client";
 
-import { MessageSquare, Monitor, Maximize } from "lucide-react";
+import { Maximize } from "lucide-react";
 import Link from "next/link";
 
 interface FeaturedVideoHeaderProps {
