@@ -70,8 +70,8 @@ export default function SingleVideoCard({
                 height="100%"
                 src={video_url}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
               ></iframe>
 
               <div className="relative max-w-[60px] inset-0 bg-white bg-opacity-30 flex items-center justify-center">
