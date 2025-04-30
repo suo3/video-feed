@@ -246,7 +246,7 @@ export default function AddVideo({
               <div className="pt-4">
                 <Button
                   type="submit"
-                  className="w-full dark:hover:bg-purple-200 hover:text-white"
+                  className="w-full dark:hover:bg-purple-700 hover:text-white"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? "Uploading..." : "Upload Video"}
