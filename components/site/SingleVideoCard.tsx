@@ -65,7 +65,14 @@ export default function SingleVideoCard({
               onClick={() => setCinemaMode(video_url)}
               className="relative aspect-video cursor-pointer bg-gray-900 mb-4"
             >
-              <iframe width="100%" height="100%" src={video_url}></iframe>
+              <iframe
+                width="100%"
+                height="100%"
+                src={video_url}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
 
               <div className="relative max-w-[60px] inset-0 bg-white bg-opacity-30 flex items-center justify-center">
                 <div className="w-12 h-12   flex items-center justify-center">
