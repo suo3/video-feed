@@ -4,4 +4,4 @@
  Video blog website built using NextJs and Supabase.
 </p>
 
-<a href="https://video-feed-kappa.vercel.app/" >DEMO</a>
+<a align="center" href="https://video-feed-kappa.vercel.app/" >DEMO</a>
