@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import Image from "next/image";
 import {
   Carousel,
   CarouselContent,
@@ -9,12 +8,11 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
-import { PlayCircle } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
-import YouTubePlayer from "./YoutubePlayer";
+import SingleVideoCard from "./SingleVideoCard";
 
 interface Video {
-  id: number;
+  id: string;
   description: string;
   thumbnail_url: string;
   video_url: string;
@@ -36,18 +34,8 @@ export default function VideoCarousel({ videos }: { videos: Video[] }) {
     }
   };
 
-  const enterCinemaMode = (youtubeUrl: string) => {
-    setCinemaMode(youtubeUrl);
-  };
-
-  const exitCinemaMode = () => {
-    setCinemaMode(null);
-  };
-
-  //const currentVideo = videos[currentIndex]
-
   return (
-    <div className="flex justify-center  w-full bg-black min-h-[500px]">
+    <div className="flex justify-center  w-full bg-black min-h-auto py-5">
       <div className="relative w-full max-w-5xl mx-auto">
         <Carousel
           ref={emblaRef}
@@ -58,25 +46,18 @@ export default function VideoCarousel({ videos }: { videos: Video[] }) {
             {videos.map((video) => (
               <CarouselItem key={video.id}>
                 <Card className="border-none w-full">
-                  <CardContent className="p-0 relative w-full h-[500px] aspect-vidkeo">
-                    <Image
-                      src={video.thumbnail_url || "/placeholder.svg"}
-                      alt={video.title}
-                      layout="fill"
-                      className="w-full h-full object-cover"
+                  <CardContent className="p-0 relative w-full h-full aspect-video items-center justify-center">
+                    <SingleVideoCard
+                      description={video.description}
+                      date={video.created_at.split("T")[0]}
+                      id={video.id}
+                      title={video.title}
+                      category={video.cat_slug}
+                      video_url={video.video_url}
+                      slug={video.title}
+                      thumbnail={video.thumbnail_url}
+                      hideVideoContent={true}
                     />
-                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-40">
-                      <h3 className="text-white text-xl font-bold mb-4 text-center px-4">
-                        {video.title}
-                      </h3>
-                      <button
-                        onClick={() => enterCinemaMode(video.thumbnail_url)}
-                        className="p-2 bg-purple-500 bg-opacity-90 rounded-full text-black hover:bg-purple-600 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
-                        aria-label={`Play ${video.title} in cinema mode`}
-                      >
-                        <PlayCircle className="w-12 h-12" />
-                      </button>
-                    </div>
                   </CardContent>
                 </Card>
               </CarouselItem>
@@ -85,10 +66,6 @@ export default function VideoCarousel({ videos }: { videos: Video[] }) {
           <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2" />
           <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
         </Carousel>
-
-        {cinemaMode && (
-          <YouTubePlayer youtubeUrl={cinemaMode} onClose={exitCinemaMode} />
-        )}
       </div>
     </div>
   );

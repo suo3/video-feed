@@ -2,15 +2,7 @@
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  MessageSquare,
-  ThumbsUp,
-  Share2,
-  BookmarkPlus,
-  Calendar,
-  Play,
-  Fullscreen,
-} from "lucide-react";
+import { Share2, Calendar, Fullscreen } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import YouTubePlayer from "./YoutubePlayer";
@@ -27,6 +19,7 @@ interface VideoCardProps {
   slug: string;
   size?: "small" | "medium" | "large";
   showCategory?: boolean;
+  hideVideoContent?: boolean;
 }
 
 export default function SingleVideoCard({
@@ -35,6 +28,7 @@ export default function SingleVideoCard({
   video_url,
   date,
   description,
+  hideVideoContent = false,
 }: VideoCardProps) {
   const [cinemaMode, setCinemaMode] = useState<string | null>(null);
 
@@ -74,7 +68,10 @@ export default function SingleVideoCard({
                 allowFullScreen
               ></iframe>
 
-              <div className="relative max-w-[60px] inset-0 bg-white bg-opacity-30 flex items-center justify-center">
+              <div
+                style={{ display: hideVideoContent ? "none" : "block" }}
+                className="relative max-w-[60px] inset-0 bg-white bg-opacity-30 flex items-center justify-center"
+              >
                 <div className="w-12 h-12   flex items-center justify-center">
                   <Fullscreen className="h-5 w-5 text-black" />
                 </div>
@@ -82,7 +79,7 @@ export default function SingleVideoCard({
             </div>
           </div>
 
-          <div className="mb-6">
+          <div hidden={hideVideoContent} className="mb-6">
             <h1 className="text-2xl md:text-3xl font-bold mb-2">{title}</h1>
             <div className="flex flex-wrap items-center gap-3 text-sm text-gray-500 mb-4">
               <div className="flex items-center">
