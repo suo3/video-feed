@@ -6,7 +6,6 @@ async function CategoryPage(props: { params: Promise<{ slug: string }> }) {
   const params = await props.params;
   const slug = params.slug;
 
-  console.log(slug);
   const { categoryVideos, categoryName } = await getCategoryVideosAction(slug);
   const { videos } = await getAllVideos();
 

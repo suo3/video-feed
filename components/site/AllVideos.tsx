@@ -37,7 +37,6 @@ export default function AllVideos({
     ? videos.filter((video) => video.category_id === selectedCategory)
     : videos;
 
-  console.log(selectedCategory);
   return (
     <div className="dark:bg-black border-b border-b-foreground/10 min-h-screen bg-white">
       <div className="dark:bg-black border-b border-b-foreground/10  bg-gray-50 py-10">

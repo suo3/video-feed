@@ -12,7 +12,6 @@ export default function VlogSubscription() {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  console.log(email);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
