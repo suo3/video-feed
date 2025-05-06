@@ -42,7 +42,7 @@ interface addNewVideo {
 }
 const cats = {
   "15": "Entertainment",
-  "16": "Travel",
+  "21": "Travel",
   "17": "Arts",
   "18": "Technology",
   "19": "Nature",
