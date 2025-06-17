@@ -1,3 +1,1 @@
-export const production = {"DATABASE_URL":"prisma+postgres://pcduvdmy_vlogadmin:fe5czcirdd95@127.0.0.200:5432/pcduvdmy_vlog","NEXT_PUBLIC_SUPABASE_URL":"https://utddxntutqukklogszox.supabase.co","NEXT_PUBLIC_SUPABASE_ANON_KEY":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV0ZGR4bnR1dHF1a2tsb2dzem94Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA2MTI0MjAsImV4cCI6MjA1NjE4ODQyMH0.rmsW2qIr9LBzTNMta5x8yJhAucI5hLIWdb-GDFNAXJ0"};
-export const development = {"DATABASE_URL":"prisma+postgres://pcduvdmy_vlogadmin:fe5czcirdd95@127.0.0.200:5432/pcduvdmy_vlog","NEXT_PUBLIC_SUPABASE_URL":"https://utddxntutqukklogszox.supabase.co","NEXT_PUBLIC_SUPABASE_ANON_KEY":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV0ZGR4bnR1dHF1a2tsb2dzem94Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA2MTI0MjAsImV4cCI6MjA1NjE4ODQyMH0.rmsW2qIr9LBzTNMta5x8yJhAucI5hLIWdb-GDFNAXJ0"};
-export const test = {};
+
